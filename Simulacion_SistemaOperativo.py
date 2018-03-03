@@ -2,7 +2,7 @@
 #David Soto - -17551
 #Algoritmos y Estructura de Datos - seccion 10
 #Fecha: 2/03/18
-#Esta es una simulacion de la corrida de programas en un sistema
+#Esta es una simulacion de la corrida de procesos en un sistema
 #operativo, con la ayuda de simpy
 
 import simpy
@@ -11,11 +11,11 @@ import math
 
 # Variables a modificar (algunas)
 CapacidadRAM = 100 #Capacidad del la memoria RAM
-NumeroProcesos = 200  # Cantidad de procesos a realizar
-NumeroCPU = 1 #Numeros de CPU a utilizar
-Interval = 1  # Intervalo de los procesos
-InstruccionesCPU = 3  # Cuantas instrucciones realiza el CPU por unidad de tiempo
-TiempoOperacionInOut = 5  # Tiempo de operacion I/O
+NumeroProcesos = 200 # Cantidad de procesos a realizar
+NumeroCPU = 2 #Numeros de CPU a utilizar
+Interval = 10 # Intervalo de los procesos
+InstruccionesCPU = 6  # Cuantas instrucciones realiza el CPU por unidad de tiempo
+TiempoOperacionInOut = 1  # Tiempo de operacion I/O
 TiemposDeProcesos = []  # Lista para almacenar tiempos
 random.seed(15) 
 
@@ -89,7 +89,7 @@ class Proceso:
 # Generador de procesos
 def proceso_generator(env, sistema_operativo):
     for i in range(NumeroProcesos):
-        tiempo_creacion = random.expovariate(1.0/Interval)
+        tiempo_creacion = math.exp(1.0/Interval)
         Proceso('Proceso %d' % i, i, env, sistema_operativo)
         yield env.timeout(tiempo_creacion)  # Tiempo que tardara en crearse cada proceso
         
